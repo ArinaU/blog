@@ -1,0 +1,8 @@
+1. add Role model
+2. add connection Role (one) <--> User (many)
+3. add cancancan gem in Gemfile
+4. generate ability class: $ rails g cancan:ability
+5. add def initialize to ability.rb
+6. add editor? & reader? methods to user model
+7. put load_and_authorize_resource to controllers
+P.S. watch this https://hibbard.eu/authentication-with-devise-and-cancancan-in-rails-4-2/
