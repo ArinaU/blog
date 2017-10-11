@@ -1,0 +1,44 @@
+
+
+<h1><%=@article.title%></h1>
+
+<p>Written by <%=@user.name%> <br>
+<%=@article.created_at%> </p>
+<p>
+<%=@article.text%>
+</p>
+
+<br>
+
+<h2>Comments</h2>
+<% @article.comments.each do |comment| %>
+  <p>
+    Author: <%= comment.author %>
+  </p>
+  <p>
+    Comment: <%= comment.body %>
+  </p>
+<% end %>
+
+<br>
+
+<h3>Leave the comment</h3>
+
+<%= form_with(model: [ @article, @article.comments.build ], local: true) do |form| %>
+  <p>
+    <%= form.label :author %><br>
+    <%= form.text_field :author %>
+  </p>
+ 
+  <p>
+    <%= form.label :body %><br>
+    <%= form.text_area :body %>
+  </p>
+ 
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
+
+<%= link_to "Create new article", new_article_path %> <%= link_to "All articles", articles_path %>
+
