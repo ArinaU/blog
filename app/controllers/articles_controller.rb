@@ -1,4 +1,6 @@
 class ArticlesController < ApplicationController
+
+	before_action :authenticate_user!, except: [:index, :show]
 	load_and_authorize_resource
 
 	def index
@@ -6,20 +8,24 @@ class ArticlesController < ApplicationController
 	end
 
 	def new
+		@article = current_user.articles.build
 	end
 
 	def create
-		#@article = Article.new(params.require(:article).permit(:title, :text))
-		@article = Article.new(article_params)
-		@article.user = User.first
+		#@article = Article.new(article_params)
+		@article = current_user.articles.build(article_params)
   		@article.save
   		redirect_to @article
-  		#render plain: params[:article].inspect
 	end
 
 	def show
     	@article = Article.find(params[:id])
     	@user = @article.user
+	end
+
+	def destroy
+		Article.find(params[:id]).destroy
+		redirect_to request.referrer
 	end
 
 	private
