@@ -6,7 +6,7 @@ class Ability
            can :manage, :all
         elsif user.reader?
             can :read, :all 
-            can :create, :comment
+            can :create, Comment
         else
             can :read, :all
         end
