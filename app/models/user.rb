@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+
 	has_many :comments
 	has_many :articles
 
@@ -11,5 +12,5 @@ class User < ApplicationRecord
 	def reader?
 		self.role.role_name == "reader"
 	end
-		
+
 end
