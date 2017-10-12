@@ -2,9 +2,10 @@ class Ability
   include CanCan::Ability
 
     def initialize(user)
-        if user.editor?
+        
+        if user && user.editor?
            can :manage, :all
-        elsif user.reader?
+        elsif user && user.reader?
             can :read, :all 
             can :create, Comment
         else
