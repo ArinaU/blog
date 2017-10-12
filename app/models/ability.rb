@@ -2,14 +2,14 @@ class Ability
   include CanCan::Ability
 
     def initialize(user)
-        
-        if user && user.editor?
-           can :manage, :all
-        elsif user && user.reader?
-            can :read, :all 
-            can :create, Comment
+        user ||= User.new
+        if user.role? :editor
+            can :manage, :all
+        elsif user.role? :reader
+            can :read, Article
         else
-            can :read, :all
+            can :read, Article
         end
     end
 end
+
