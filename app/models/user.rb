@@ -10,6 +10,10 @@ class User < ApplicationRecord
 
 	belongs_to :role
 
+	def assign_role
+    	self.role = Role.find_by name: "Regular" if self.role.nil?
+  	end
+
 	def editor?
 		self.role.role_name == "editor"
 	end
