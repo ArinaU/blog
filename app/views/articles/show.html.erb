@@ -14,7 +14,8 @@
 <% @article.comments.each do |comment| %>
   <p>
   <!--  <%= current_user.email%> <%= comment.body %> -->
-    <%= "#{current_user.email} :   #{comment.body}" %>
+    <%= "#{comment.user_id} :   #{comment.body}" %>
+    <%= link_to 'Edit', edit_article_comment_path(@article, comment) %>
   </p>
 <% end %>
 
@@ -38,5 +39,5 @@
 <% end %>
 <% end %>
 
-<%= link_to "New article", new_article_path %> <%= link_to "All articles", articles_path %>
+<%= link_to "New article", new_article_path %> <%= link_to "All articles", articles_path %> 
 
