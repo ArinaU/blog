@@ -13,9 +13,6 @@
 <h2>Comments</h2>
 <% @article.comments.each do |comment| %>
   <p>
-    Author: <%= comment.author %>
-  </p>
-  <p>
     Comment: <%= comment.body %>
   </p>
 <% end %>
@@ -32,6 +29,7 @@
     <%= form.text_area :body %>
 
   </p>
+  
  
   <p>
     <%= form.submit %>
