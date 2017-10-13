@@ -17,6 +17,8 @@ class Ability
 
       else
         can :read, Article
+
     end
   end
 end
+
