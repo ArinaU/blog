@@ -1,13 +1,23 @@
 class CommentsController < ApplicationController
   
 	before_action :authenticate_user!
+  before_action :get_article, only: [:create, :edit, :update]
+  before_action :get_comment, only: [:show, :edit, :update]
+
 	load_and_authorize_resource
+
+  def get_article
+    @article = Article.find(params[:article_id])
+  end
+
+  def get_comment
+    @comment = Comment.find(params[:id])
+  end
 
 	def new
 	end
 
 	def create
- 	  @article = Article.find(params[:article_id])
  	  @comment = @article.comments.build(comment_params)
  	  @comment.user = current_user
  	  @comment.save
@@ -15,7 +25,6 @@ class CommentsController < ApplicationController
  	end
 
  	def show
- 		@comment = Comment.find(params[:id])
     @user = @comment.user
  	end
 
@@ -23,10 +32,8 @@ class CommentsController < ApplicationController
  	end
 
  	def update
- 		@comment = Comment.find(params[:id])
- 
   	if @comment.update(comment_params)
-    	redirect_to @comment
+    	redirect_to @article
   	else
     	render 'edit'
   	end

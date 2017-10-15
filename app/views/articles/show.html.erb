@@ -1,7 +1,7 @@
 
 
 <h1><%=@article.title%></h1>
-
+<h1>Current user: #<%=current_user.id%> <%=current_user.email%></h1>
 <p>Written by <%=@user.name%> <br>
 <%=@article.created_at%> </p>
 <p>
@@ -29,7 +29,6 @@
   <p>
     <%= form.label :body %><br>
     <%= form.text_area :body %>
-
   </p>
   
  

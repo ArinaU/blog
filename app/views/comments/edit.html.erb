@@ -1,11 +1,12 @@
 <h1>Editing comment</h1>
  
-<%= form_with(model: @article, local: true) do |form| %>
+
+<%= form_for([@article, @comment]) do |form| %>
  
  
   <p>
-    <%= form.label :text %><br>
-    <%= form.text_area :text %>
+    <%= form.label :body %><br>
+    <%= form.text_area :body %>
   </p>
  
   <p>
