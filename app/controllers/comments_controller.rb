@@ -31,6 +31,11 @@ class CommentsController < ApplicationController
  	def edit
  	end
 
+  def destroy
+    Comment.find(params[:id]).destroy
+    redirect_to request.referrer
+  end
+
  	def update
   	if @comment.update(comment_params)
     	redirect_to @article
