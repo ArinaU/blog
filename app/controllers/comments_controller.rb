@@ -2,17 +2,10 @@ class CommentsController < ApplicationController
   
 	before_action :authenticate_user!
   before_action :get_article, only: [:create, :edit, :update]
-  before_action :get_comment, only: [:show, :edit, :update]
+  before_action :get_comment, only: [:show, :edit, :update, :update_is_deleted_flag, :destroy]
+  #before_destroy :update_is_deleted_flag
 
 	load_and_authorize_resource
-
-  def get_article
-    @article = Article.find(params[:article_id])
-  end
-
-  def get_comment
-    @comment = Comment.find(params[:id])
-  end
 
 	def new
 	end
@@ -31,9 +24,13 @@ class CommentsController < ApplicationController
  	def edit
  	end
 
+
   def destroy
-    Comment.find(params[:id]).destroy
-    redirect_to request.referrer
+    #Comment.find(params[:id]).destroy
+    #:update_is_deleted_flag
+    #@comment.save
+    #redirect_to request.referrer
+    @comment.update_attributes(is_deleted: true)
   end
 
  	def update
@@ -45,8 +42,21 @@ class CommentsController < ApplicationController
  	end
  
  	private
+
+  def get_article
+    @article = Article.find(params[:article_id])
+  end
+
+  def get_comment
+    @comment = Comment.find(params[:id])
+  end
  
  	def comment_params
     params.require(:comment).permit(:body)
   end
+
+  def update_is_deleted_flag
+    @comment.update_attributes(is_deleted: true)
+  end
+
 end
