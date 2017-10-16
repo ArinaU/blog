@@ -12,12 +12,14 @@
 
 <h2>Comments</h2>
 <% @article.comments.each do |comment| %>
-  <p>
-  <!--  <%= current_user.email%> <%= comment.body %> -->
-    <%= "#{comment.user_id} :   #{comment.body}" %>
-    <%= link_to 'Edit', edit_article_comment_path(@article, comment) %>
-    <%= link_to 'Delete', article_comment_path(@article, comment), method: :delete  %>
-  </p>
+    <% if (!comment.is_deleted || comment.user_id == current_user.id) %>
+      <p>
+      <!--  <%= current_user.email%> <%= comment.body %> -->
+        <%= "#{comment.user_id} :   #{comment.body}" %>
+        <%= link_to 'Edit', edit_article_comment_path(@article, comment) %>
+        <%= link_to 'Delete', article_comment_path(@article, comment), method: :delete  %>
+      </p>
+    <% end %>
 <% end %>
 
 <br>
@@ -39,5 +41,5 @@
 <% end %>
 <% end %>
 
-<%= link_to "New article", new_article_path %> <%= link_to "All articles", articles_path %> 
+<%= link_to "New article", new_article_path %> <%= link_to "All articles", articles_path %>
 

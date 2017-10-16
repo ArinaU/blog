@@ -7,10 +7,10 @@ class Ability
         #can :read, :all
         can :read, Article
         can :create, Article
-        can :read, Comment do |comment|
-          user.id == comment.user_id or comment.is_deleted == false
-        end
-        
+        # can :read, Comment do |comment|
+        #   user.id == comment.user_id or comment.is_deleted == false
+        # end
+
         can :create, Comment
         can :destroy, Article, user_id: user.id
         can :destroy, Comment do |comment|
@@ -26,9 +26,9 @@ class Ability
         can :create, Comment
         can :update, Comment, user_id: user.id
         can :destroy, Comment, user_id: user.id
-        can :read, Comment do |comment|
-          user.id == comment.user_id or comment.is_deleted == false
-        end
+        # can :read, Comment do |comment|
+        #   user.id == comment.user_id or comment.is_deleted == false
+        # end
 
       else
         can :read, Article
