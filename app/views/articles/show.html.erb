@@ -1,7 +1,7 @@
 
 
 <h1><%=@article.title%></h1>
-
+<h1>Current user: #<%=current_user.id%> <%=current_user.email%></h1>
 <p>Written by <%=@user.name%> <br>
 <%=@article.created_at%> </p>
 <p>
@@ -12,12 +12,14 @@
 
 <h2>Comments</h2>
 <% @article.comments.each do |comment| %>
-  <p>
-    Author: <%= comment.author %>
-  </p>
-  <p>
-    Comment: <%= comment.body %>
-  </p>
+    <% if (!comment.is_deleted || comment.user_id == current_user.id) %>
+      <p>
+      <!--  <%= current_user.email%> <%= comment.body %> -->
+        <%= "#{comment.user_id} :   #{comment.body}" %>
+        <%= link_to 'Edit', edit_article_comment_path(@article, comment) %>
+        <%= link_to 'Delete', article_comment_path(@article, comment), method: :delete  %>
+      </p>
+    <% end %>
 <% end %>
 
 <br>
@@ -26,16 +28,12 @@
 
 <h3>Leave the comment</h3>
 
-<%= form_with(model: [ @article, @article.comments.build ], local: true) do |form| %>
-  <p>
-    <%= form.label :author %><br>
-    <%= form.text_field :author %>
-  </p>
- 
+<%= form_with(model: [ @article, @article.comments.build ], local: true) do |form| %> 
   <p>
     <%= form.label :body %><br>
     <%= form.text_area :body %>
   </p>
+  
  
   <p>
     <%= form.submit %>

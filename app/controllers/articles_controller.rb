@@ -1,37 +1,48 @@
-# frozen_string_literal: true
-
 class ArticlesController < ApplicationController
-  before_action :authenticate_user!, except: %i[index show]
-  load_and_authorize_resource
 
-  def index
-    @articles = Article.all
-  end
+	before_action :authenticate_user!, except: [:index, :show]
+	load_and_authorize_resource
 
-  def new
-    @article = current_user.articles.build
-  end
+	def index
+		@articles = Article.all
+		#@article = Article.find(params[:id])
+	end
 
-  def create
-    # @article = Article.new(article_params)
-    @article = current_user.articles.build(article_params)
-    @article.save
-    redirect_to @article
-  end
+	def new
+		@article = current_user.articles.build
+	end
 
-  def show
-    @article = Article.find(params[:id])
-    @user = @article.user
-  end
+	def create
+		#@article = Article.new(article_params)
+		@article = current_user.articles.build(article_params)
+  		@article.save
+  		redirect_to @article
+	end
 
-  def destroy
-    Article.find(params[:id]).destroy
-    redirect_to request.referrer
-  end
+	def show
+    	@article = Article.find(params[:id])
+    	@user = @article.user
+	end
 
-  private
+	def destroy
+		Article.find(params[:id]).destroy
+		redirect_to request.referrer
+	end
 
-  def article_params
-    params.require(:article).permit(:title, :text)
-  end
+	def update
+  	@article = Article.find(params[:id])
+ 
+  	if @article.update(article_params)
+    	redirect_to @article
+  	else
+    	render 'edit'
+  	end
+	end
+
+	private
+
+  	def article_params
+    	params.require(:article).permit(:title, :text)
+  	end
+
 end

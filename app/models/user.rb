@@ -1,25 +1,42 @@
-# frozen_string_literal: true
-
 class User < ApplicationRecord
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+  devise :database_authenticatable, :trackable, :validatable, :registerable
 
-  has_many :comments
-  has_many :articles
+  #devise :database_authenticatable, :registerable,
+  #       :recoverable, :rememberable, :trackable, :validatable
 
-  belongs_to :role
+	has_many :comments
+	has_many :articles
 
-  def assign_role
-    self.role = Role.find_by name: 'Regular' if role.nil?
+	#belongs_to :role
+
+  ROLES = %i[editor reader].freeze
+
+  def roles=(roles)
+    roles = [*roles].map(&:to_sym)
+    self.roles_mask = (roles & ROLES).map { |r| 2**ROLES.index(r) }.inject(0, :+)
   end
 
-  def editor?
-    role.role_name == 'editor'
+  def roles
+    ROLES.reject do |r|
+      ((roles_mask.to_i || 0) & 2**ROLES.index(r)).zero?
+    end
   end
 
-  def reader?
-    role.role_name == 'reader'
+  def role?(role)
+    roles.include?(role)
   end
+
+	#def assign_role
+  #  	self.role = Role.find_by name: "Regular" if self.role.nil?
+  #end
+	#def editor?
+	#	self.role.role_name == "editor"
+	#end
+	#def reader?
+	#	self.role.role_name == "reader"
+	#end
+
 end

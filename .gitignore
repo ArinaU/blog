@@ -21,8 +21,4 @@
 
 .byebug_history
 config/database.yml
-
-.rubocop.yml
-.rubocop_todo.yml
-
 .idea/
