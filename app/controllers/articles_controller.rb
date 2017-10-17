@@ -4,7 +4,7 @@ class ArticlesController < ApplicationController
 	load_and_authorize_resource
 
 	def index
-		@articles = Article.all
+		@articles = Article.order('created_at DESC').limit(10)
 		#@article = Article.find(params[:id])
 	end
 
