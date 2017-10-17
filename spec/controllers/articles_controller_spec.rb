@@ -49,5 +49,15 @@ RSpec.describe ArticlesController do
     end
   end
 
+  describe 'GET#destroy' do
+    it 'deletes article' do
+      @buf = Article.all.count - 1
+      @article.destroy
+      expect(Article.all.count).to eq(@buf)
+
+    end
+  end
+
+
 end
 
