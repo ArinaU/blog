@@ -20,7 +20,7 @@ class Ability
         can [:update, :destroy], Comment, user_id: user.id                     # tested
 
       else
-        can :read, Article
+        can :read, Article                                                     # tested
 
       end
   end

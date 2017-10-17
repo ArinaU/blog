@@ -93,6 +93,10 @@ RSpec.describe Ability, type: :model do
     expect(@abilityReader).not_to be_able_to(:update, @editorsComment)
 	end
 
+	it "unauthorised user should be able to read articles" do 
+		expect(Ability.new(User.new)).to be_able_to(:read, Article.new)
+	end
+
 # fails
 #	it "editor should be able to destroy comments in his article" do        
 #    expect(@abilitySecondEditor).to be_able_to(:destroy, @readersComment)
