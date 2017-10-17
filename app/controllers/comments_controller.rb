@@ -5,8 +5,6 @@ class CommentsController < ApplicationController
   before_action :get_comment, only: [:show, :edit, :update, :update_is_deleted_flag, :destroy]
   #before_destroy :update_is_deleted_flag
 
-	load_and_authorize_resource
-
 	def new
 	end
 

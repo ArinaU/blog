@@ -14,20 +14,21 @@ RSpec.describe Ability, type: :model do
 		@userReader = User.create(name: 'James', email: 'aaa@mail.ru',
                         password: 'qwerty', password_confirmation: 'qwerty',
                         roles_mask: 2)
+		# sign_in @userEditor2
 
 		# new articles
-    @article1 = Article.new(title: 'Title', text: 'Text', user_id: @userEditor1.id)
-    @article2 = Article.new(title: 'Title', text: 'Text', user_id: @userEditor2.id)
+        @article1 = Article.new(title: 'Title', text: 'Text', user_id: @userEditor1.id)
+        @article2 = Article.new(title: 'Title', text: 'Text', user_id: @userEditor2.id)
 
-    # new comments
-    @editorsComment = Comment.new(body: "Comment", user_id: @userEditor1.id, article_id: @article2.id)
-    @readersComment = Comment.new(body: "Comment", user_id: @userReader.id, article_id: @article2.id)
+        # new comments
+        @editorsComment = Comment.new(body: "Comment", user_id: @userEditor1.id, article_id: @article2.id)
+        @readersComment = Comment.new(body: "Comment", user_id: @userReader.id, article_id: @article2.id)
 
-    # new abilities
-    @abilityEditor = Ability.new(@userEditor1)
-    @abilitySecondEditor = Ability.new(@userEditor2)
-    @abilityReader = Ability.new(@userReader)
-  end
+        # new abilities
+        @abilityEditor = Ability.new(@userEditor1)
+        @abilitySecondEditor = Ability.new(@userEditor2)
+        @abilityReader = Ability.new(@userReader)
+    end
 
 	it "editor should be able to read articles" do 
     expect(@abilityEditor).to be_able_to(:read, Article.new)
@@ -98,8 +99,8 @@ RSpec.describe Ability, type: :model do
 	end
 
 # fails
-#	it "editor should be able to destroy comments in his article" do        
-#    expect(@abilitySecondEditor).to be_able_to(:destroy, @readersComment)
-#	end
+	# it "editor should be able to destroy comments in his article" do        
+  #   expect(@abilitySecondEditor).to be_able_to(:destroy, @readersComment)
+	# end
 
 end
