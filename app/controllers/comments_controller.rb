@@ -1,11 +1,10 @@
 class CommentsController < ApplicationController
+  load_and_authorize_resource
   
 	before_action :authenticate_user!
   before_action :get_article, only: [:create, :edit, :update]
   before_action :get_comment, only: [:show, :edit, :update, :update_is_deleted_flag, :destroy]
   #before_destroy :update_is_deleted_flag
-
-	load_and_authorize_resource
 
 	def new
 	end

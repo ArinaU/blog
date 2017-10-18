@@ -48,6 +48,7 @@ group :development, :test do
   gem 'selenium-webdriver'
   gem 'simplecov', :require => false
   gem 'rspec-rails', '~> 3.6'
+  #gem 'rails-controller-testing', '~> 0.0.3'
 end
 
 group :development do
