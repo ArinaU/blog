@@ -14,15 +14,18 @@ RSpec.describe ArticlesController do
     sign_in @user
   end
 
+  describe 'GET#new' do
+    it 'gets form for new article' do
+      get :new, params:{ article: { }}
+      expect(assigns(:article)).to be_a_new(Article)
+    end
+  end
 
    describe 'POST#create' do
-
     it 'creates a new article' do
-
       expect {
         post :create, params:{ article: { title: "title1", text: "text1" } }
       }.to change(Article, :count).by(1)
-
       expect(response).to redirect_to article_path(assigns[:article])
     end
   end
@@ -51,11 +54,23 @@ RSpec.describe ArticlesController do
 
   describe 'GET#destroy' do
     it 'deletes article' do
-      @buf = Article.all.count - 1
+      # article1 = Article.create(title: 'title1', text: 'text1', user_id: @user.id)
+      # expect{ 
+      #     delete :destroy, { id: article1 }
+      # }.to change(Article, :count).by(-1)
+      #@article = Article.find(params[:id])
+      buf = Article.all.count - 1
       @article.destroy
-      expect(Article.all.count).to eq(@buf)
+      expect(Article.all.count).to eq(buf)
 
     end
+  end
+
+  describe 'GET#update' do
+      it 'updates article' do
+        # put :update, params:{ article: { title: @article.title, text: @article.text, user_id: @article.user_id }}
+        # expect(response).to redirect_to article_path(assigns[:article])
+      end
   end
 
 
