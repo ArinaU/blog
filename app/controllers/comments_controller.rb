@@ -1,4 +1,5 @@
 class CommentsController < ApplicationController
+  load_and_authorize_resource
   
 	before_action :authenticate_user!
   before_action :get_article, only: [:create, :edit, :update]
