@@ -246,7 +246,7 @@ DEPENDENCIES
   mysql2
   puma (~> 3.7)
   rails (~> 5.1.4)
-  rails-controller-testing (~> 0.0.3)
+  rails-controller-testing
   rspec-rails (~> 3.6)
   rubocop
   sass-rails (~> 5.0)

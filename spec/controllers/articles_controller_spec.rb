@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ArticlesController do
+RSpec.describe ArticlesController, type: :controller do
 
   before(:each) do
     @user = User.create(name: 'James', email: 'asd@mail.ru',
@@ -55,7 +55,7 @@ RSpec.describe ArticlesController do
   describe 'GET#destroy' do
     it 'deletes article' do
       # article1 = Article.create(title: 'title1', text: 'text1', user_id: @user.id)
-      # expect{ 
+      # expect{
       #     delete :destroy, { id: article1 }
       # }.to change(Article, :count).by(-1)
       #@article = Article.find(params[:id])
